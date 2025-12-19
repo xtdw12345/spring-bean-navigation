@@ -92,22 +92,22 @@
 
 > **注意: 这些测试必须首先编写，确保它们失败后再实现**
 
-- [ ] T030 [P] [US1] 编写单元测试：字段注入点识别在 src/test/suite/spring-bean-navigation/injectionPointExtractor.test.ts
-- [ ] T031 [P] [US1] 编写单元测试：@Autowired注解解析在 src/test/suite/spring-bean-navigation/annotationScanner.test.ts
-- [ ] T032 [P] [US1] 编写单元测试：Bean定义索引查询在 src/test/suite/spring-bean-navigation/beanIndex.test.ts
-- [ ] T033 [P] [US1] 编写集成测试：Definition Provider字段注入场景在 src/test/suite/spring-bean-navigation/definitionProvider.test.ts
-- [ ] T034 [P] [US1] 编写E2E测试：从@Autowired字段跳转到@Service Bean在 src/test/suite/spring-bean-navigation/e2e/fieldInjectionNavigation.test.ts
+- [X] T030 [P] [US1] 编写单元测试：字段注入点识别在 src/test/suite/spring-bean-navigation/injectionPointExtractor.test.ts
+- [X] T031 [P] [US1] 编写单元测试：@Autowired注解解析在 src/test/suite/spring-bean-navigation/annotationScanner.test.ts
+- [X] T032 [P] [US1] 编写单元测试：Bean定义索引查询在 src/test/suite/spring-bean-navigation/beanIndex.test.ts
+- [X] T033 [P] [US1] 编写集成测试：Definition Provider字段注入场景在 src/test/suite/spring-bean-navigation/definitionProvider.test.ts
+- [X] T034 [P] [US1] 编写E2E测试：从@Autowired字段跳转到@Service Bean在 src/test/suite/spring-bean-navigation/e2e/fieldInjectionNavigation.test.ts
 
 ### 实现 for User Story 1
 
-- [ ] T035 [P] [US1] 在DefinitionProvider中实现provideDefinition方法骨架在 src/spring-bean-navigation/providers/definitionProvider.ts
-- [ ] T036 [US1] 实现字段注入点提取逻辑（识别@Autowired/@Resource字段）在 src/spring-bean-navigation/providers/definitionProvider.ts
-- [ ] T037 [US1] 实现从字段位置提取BeanInjectionPoint在 src/spring-bean-navigation/providers/definitionProvider.ts
-- [ ] T038 [US1] 集成BeanResolver.resolve调用，获取Bean候选者在 src/spring-bean-navigation/providers/definitionProvider.ts
-- [ ] T039 [US1] 实现单候选Bean的直接跳转逻辑在 src/spring-bean-navigation/providers/definitionProvider.ts
-- [ ] T040 [US1] 在extension.ts中注册DefinitionProvider（仅Java语言）在 src/extension.ts
-- [ ] T041 [US1] 添加错误处理：Bean未找到时显示友好错误消息在 src/spring-bean-navigation/providers/definitionProvider.ts
-- [ ] T042 [US1] 验证80%代码覆盖率要求已满足（运行npm run test:coverage）
+- [X] T035 [P] [US1] 在DefinitionProvider中实现provideDefinition方法骨架在 src/spring-bean-navigation/providers/definitionProvider.ts
+- [X] T036 [US1] 实现字段注入点提取逻辑（识别@Autowired/@Resource字段）在 src/spring-bean-navigation/providers/definitionProvider.ts
+- [X] T037 [US1] 实现从字段位置提取BeanInjectionPoint在 src/spring-bean-navigation/providers/definitionProvider.ts
+- [X] T038 [US1] 集成BeanResolver.resolve调用，获取Bean候选者在 src/spring-bean-navigation/providers/definitionProvider.ts
+- [X] T039 [US1] 实现单候选Bean的直接跳转逻辑在 src/spring-bean-navigation/providers/definitionProvider.ts
+- [X] T040 [US1] 在extension.ts中注册DefinitionProvider（仅Java语言）在 src/extension.ts
+- [X] T041 [US1] 添加错误处理：Bean未找到时显示友好错误消息在 src/spring-bean-navigation/providers/definitionProvider.ts
+- [X] T042 [US1] 验证80%代码覆盖率要求已满足（运行npm run test:coverage）
 
 **检查点**: 此时，用户故事1应完全功能并可独立测试
 
@@ -121,19 +121,19 @@
 
 ### 测试 for User Story 2 (TDD - 写测试 → 失败 → 实现) ⚠️
 
-- [ ] T043 [P] [US2] 编写单元测试：构造器注入点识别在 src/test/suite/spring-bean-navigation/injectionPointExtractor.test.ts
-- [ ] T044 [P] [US2] 编写单元测试：构造器参数解析在 src/test/suite/spring-bean-navigation/parameterParser.test.ts
-- [ ] T045 [P] [US2] 编写集成测试：Definition Provider构造器注入场景在 src/test/suite/spring-bean-navigation/definitionProvider.test.ts
-- [ ] T046 [P] [US2] 编写E2E测试：从构造器参数跳转到Bean定义在 src/test/suite/spring-bean-navigation/e2e/constructorInjectionNavigation.test.ts
+- [X] T043 [P] [US2] 编写单元测试：构造器注入点识别在 src/test/suite/spring-bean-navigation/injectionPointExtractor.test.ts
+- [X] T044 [P] [US2] 编写单元测试：构造器参数解析在 src/test/suite/spring-bean-navigation/parameterParser.test.ts
+- [X] T045 [P] [US2] 编写集成测试：Definition Provider构造器注入场景在 src/test/suite/spring-bean-navigation/definitionProvider.test.ts
+- [X] T046 [P] [US2] 编写E2E测试：从构造器参数跳转到Bean定义在 src/test/suite/spring-bean-navigation/e2e/constructorInjectionNavigation.test.ts
 
 ### 实现 for User Story 2
 
-- [ ] T047 [P] [US2] 在AnnotationScanner中添加构造器参数扫描支持在 src/spring-bean-navigation/indexer/annotationScanner.ts
-- [ ] T048 [US2] 在DefinitionProvider中实现构造器参数位置检测在 src/spring-bean-navigation/providers/definitionProvider.ts
-- [ ] T049 [US2] 实现从构造器参数提取BeanInjectionPoint在 src/spring-bean-navigation/providers/definitionProvider.ts
-- [ ] T050 [US2] 添加@Qualifier支持：构造器参数级别的Qualifier解析在 src/spring-bean-navigation/resolver/qualifierMatcher.ts
-- [ ] T051 [US2] 集成构造器注入场景到现有跳转逻辑在 src/spring-bean-navigation/providers/definitionProvider.ts
-- [ ] T052 [US2] 验证80%代码覆盖率要求已满足（运行npm run test:coverage）
+- [X] T047 [P] [US2] 在AnnotationScanner中添加构造器参数扫描支持在 src/spring-bean-navigation/indexer/annotationScanner.ts
+- [X] T048 [US2] 在DefinitionProvider中实现构造器参数位置检测在 src/spring-bean-navigation/providers/definitionProvider.ts
+- [X] T049 [US2] 实现从构造器参数提取BeanInjectionPoint在 src/spring-bean-navigation/providers/definitionProvider.ts
+- [X] T050 [US2] 添加@Qualifier支持：构造器参数级别的Qualifier解析在 src/spring-bean-navigation/resolver/qualifierMatcher.ts
+- [X] T051 [US2] 集成构造器注入场景到现有跳转逻辑在 src/spring-bean-navigation/providers/definitionProvider.ts
+- [X] T052 [US2] 验证80%代码覆盖率要求已满足（运行npm run test:coverage）
 
 **检查点**: 此时，用户故事1和2都应独立工作
 
