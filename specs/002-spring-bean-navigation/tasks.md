@@ -25,13 +25,13 @@
 
 **目的**: 项目初始化和基础结构
 
-- [ ] T001 安装java-parser依赖: `npm install java-parser`
-- [ ] T002 [P] 验证TypeScript strict mode已启用在tsconfig.json
-- [ ] T003 [P] 创建功能主目录 src/spring-bean-navigation/ 和子目录结构
-- [ ] T004 [P] 创建测试目录 src/test/suite/spring-bean-navigation/ 和子目录结构
-- [ ] T005 [P] 在package.json中添加扩展激活事件: onLanguage:java, workspaceContains:**/pom.xml, workspaceContains:**/build.gradle
-- [ ] T006 [P] 在package.json中添加配置项: happy-java.indexing.enabled, happy-java.indexing.paths, happy-java.indexing.maxCacheSize等
-- [ ] T007 创建测试数据工厂 src/test/suite/spring-bean-navigation/fixtures/BeanFactory.ts
+- [X] T001 安装java-parser依赖: `npm install java-parser`
+- [X] T002 [P] 验证TypeScript strict mode已启用在tsconfig.json
+- [X] T003 [P] 创建功能主目录 src/spring-bean-navigation/ 和子目录结构
+- [X] T004 [P] 创建测试目录 src/test/suite/spring-bean-navigation/ 和子目录结构
+- [X] T005 [P] 在package.json中添加扩展激活事件: onLanguage:java, workspaceContains:**/pom.xml, workspaceContains:**/build.gradle
+- [X] T006 [P] 在package.json中添加配置项: happy-java.indexing.enabled, happy-java.indexing.paths, happy-java.indexing.maxCacheSize等
+- [X] T007 创建测试数据工厂 src/test/suite/spring-bean-navigation/fixtures/BeanFactory.ts
 
 ---
 

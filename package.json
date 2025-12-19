@@ -7,17 +7,70 @@
     "vscode": "^1.107.0"
   },
   "categories": [
-    "Other"
+    "Programming Languages"
   ],
-  "activationEvents": [],
+  "activationEvents": [
+    "onLanguage:java",
+    "workspaceContains:**/pom.xml",
+    "workspaceContains:**/build.gradle"
+  ],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "happy-java.helloWorld",
-        "title": "Hello World"
+        "command": "happy-java.happyJava",
+        "title": "Happy Java"
       }
-    ]
+    ],
+    "configuration": {
+      "title": "Happy Java",
+      "properties": {
+        "happy-java.indexing.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable/disable Spring Bean indexing"
+        },
+        "happy-java.indexing.paths": {
+          "type": "array",
+          "default": [
+            "src/main/java",
+            "src/test/java"
+          ],
+          "description": "Paths to index for Spring Beans (relative to workspace root)",
+          "items": {
+            "type": "string"
+          }
+        },
+        "happy-java.indexing.excludePatterns": {
+          "type": "array",
+          "default": [
+            "**/target/**",
+            "**/build/**",
+            "**/.git/**",
+            "**/node_modules/**"
+          ],
+          "description": "Glob patterns to exclude from indexing",
+          "items": {
+            "type": "string"
+          }
+        },
+        "happy-java.indexing.maxCacheSize": {
+          "type": "number",
+          "default": 20,
+          "description": "Maximum cache size in MB for Bean index"
+        },
+        "happy-java.indexing.debounceDelay": {
+          "type": "number",
+          "default": 500,
+          "description": "Debounce delay in milliseconds for file change events"
+        },
+        "happy-java.indexing.showProgress": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show progress notification during indexing"
+        }
+      }
+    }
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
@@ -28,13 +81,16 @@
     "test": "vscode-test"
   },
   "devDependencies": {
-    "@types/vscode": "^1.107.0",
     "@types/mocha": "^10.0.10",
     "@types/node": "22.x",
-    "typescript-eslint": "^8.48.1",
+    "@types/vscode": "^1.107.0",
+    "@vscode/test-cli": "^0.0.12",
+    "@vscode/test-electron": "^2.5.2",
     "eslint": "^9.39.1",
     "typescript": "^5.9.3",
-    "@vscode/test-cli": "^0.0.12",
-    "@vscode/test-electron": "^2.5.2"
+    "typescript-eslint": "^8.48.1"
+  },
+  "dependencies": {
+    "java-parser": "^3.0.1"
   }
 }
