@@ -82,7 +82,9 @@ export class BeanResolver implements IBeanResolver {
     }
 
     // Check for type match
-    if (bean.type === injection.beanType) {
+    // Support both FQN match and simple name match
+    const isTypeMatch = this.isTypeMatch(bean.type, injection.beanType);
+    if (isTypeMatch) {
       if (bean.isPrimary) {
         return {
           isMatch: true,
@@ -103,5 +105,33 @@ export class BeanResolver implements IBeanResolver {
       score: 0,
       reason: MatchReason.TYPE_MATCH
     };
+  }
+
+  /**
+   * Check if bean type matches injection type
+   * Supports both FQN and simple class name matching
+   * @param beanType Bean type (e.g., "com.example.UserService")
+   * @param injectionType Injection type (e.g., "UserService" or "com.example.UserService")
+   * @returns True if types match
+   */
+  private isTypeMatch(beanType: string, injectionType: string): boolean {
+    // Exact match (both FQN or both simple names)
+    if (beanType === injectionType) {
+      return true;
+    }
+
+    // Check if injection type is a simple name that matches bean's FQN
+    // e.g., beanType="com.example.UserService", injectionType="UserService"
+    if (beanType.endsWith('.' + injectionType)) {
+      return true;
+    }
+
+    // Check if bean type is a simple name that matches injection's FQN
+    // e.g., beanType="UserService", injectionType="com.example.UserService"
+    if (injectionType.endsWith('.' + beanType)) {
+      return true;
+    }
+
+    return false;
   }
 }

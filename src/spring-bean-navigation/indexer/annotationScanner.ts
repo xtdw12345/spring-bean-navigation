@@ -217,7 +217,13 @@ export class AnnotationScanner implements IAnnotationScanner {
           continue;
         }
 
-        const classBody = classDecl.children?.classBody?.[0];
+        // Access normalClassDeclaration first
+        const normalClassDecl = classDecl.children?.normalClassDeclaration?.[0];
+        if (!normalClassDecl) {
+          continue;
+        }
+
+        const classBody = normalClassDecl.children?.classBody?.[0];
         if (!classBody) {
           continue;
         }
@@ -272,7 +278,13 @@ export class AnnotationScanner implements IAnnotationScanner {
           continue;
         }
 
-        const classBody = classDecl.children?.classBody?.[0];
+        // Access normalClassDeclaration first
+        const normalClassDecl = classDecl.children?.normalClassDeclaration?.[0];
+        if (!normalClassDecl) {
+          continue;
+        }
+
+        const classBody = normalClassDecl.children?.classBody?.[0];
         if (!classBody) {
           continue;
         }

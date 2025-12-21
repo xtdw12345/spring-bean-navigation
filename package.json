@@ -23,7 +23,11 @@
       },
       {
         "command": "happy-java.navigateToBean",
-        "title": "navigateToBean"
+        "title": "happy-java: Navigate to Spring Bean"
+      },
+      {
+        "command": "happy-java.rebuildIndex",
+        "title": "happy-java: Rebuild Spring Bean Index"
       }
     ],
     "configuration": {

@@ -99,8 +99,13 @@ export class BeanIndex {
       }
     }
 
-    // 3. Search by type
-    const byType = this.definitionsByType.get(injection.beanType) || [];
+    // 3. Search by type - support both exact match and FQN/simple name matching
+    let byType = this.definitionsByType.get(injection.beanType) || [];
+
+    // If no exact match, search through all types for FQN/simple name match
+    if (byType.length === 0) {
+      byType = this.findByTypeFlexible(injection.beanType);
+    }
 
     // 4. Check for @Primary beans
     const primaryBeans = byType.filter(bean => bean.isPrimary);
@@ -131,6 +136,51 @@ export class BeanIndex {
     return allBeans.filter(bean =>
       bean.qualifiers && bean.qualifiers.includes(qualifier)
     );
+  }
+
+  /**
+   * Find beans by type with flexible matching (supports both FQN and simple names)
+   * @param typeName Type name to search (can be FQN or simple name)
+   * @returns Array of matching beans
+   */
+  private findByTypeFlexible(typeName: string): BeanDefinition[] {
+    const matches: BeanDefinition[] = [];
+
+    // Search through all indexed types
+    for (const [indexedType, beans] of this.definitionsByType.entries()) {
+      if (this.isTypeMatch(indexedType, typeName)) {
+        matches.push(...beans);
+      }
+    }
+
+    return matches;
+  }
+
+  /**
+   * Check if two type names match (supports FQN and simple name matching)
+   * @param type1 First type name
+   * @param type2 Second type name
+   * @returns True if types match
+   */
+  private isTypeMatch(type1: string, type2: string): boolean {
+    // Exact match
+    if (type1 === type2) {
+      return true;
+    }
+
+    // Check if type2 is a simple name that matches type1's FQN
+    // e.g., type1="com.example.UserService", type2="UserService"
+    if (type1.endsWith('.' + type2)) {
+      return true;
+    }
+
+    // Check if type1 is a simple name that matches type2's FQN
+    // e.g., type1="UserService", type2="com.example.UserService"
+    if (type2.endsWith('.' + type1)) {
+      return true;
+    }
+
+    return false;
   }
 
   /**

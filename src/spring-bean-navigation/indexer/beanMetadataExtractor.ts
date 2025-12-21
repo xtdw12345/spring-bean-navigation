@@ -245,9 +245,11 @@ export class BeanMetadataExtractor {
       const packageName = this.extractPackageName(packageDecl) || '';
 
       // Extract class name
+      // Path: ordinaryCompilationUnit -> typeDeclaration -> classDeclaration -> normalClassDeclaration -> typeIdentifier
       const typeDecl = ordinaryCompilationUnit.children?.typeDeclaration?.[0];
       const classDecl = typeDecl?.children?.classDeclaration?.[0];
-      const className = classDecl?.children?.typeIdentifier?.[0]?.children?.Identifier?.[0]?.image;
+      const normalClassDecl = classDecl?.children?.normalClassDeclaration?.[0];
+      const className = normalClassDecl?.children?.typeIdentifier?.[0]?.children?.Identifier?.[0]?.image;
 
       if (!className) {
         console.log('[BeanMetadataExtractor] No class name found in CST');
