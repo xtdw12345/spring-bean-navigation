@@ -3,6 +3,11 @@
   "displayName": "Spring Bean Navigation",
   "description": "Navigate Spring Bean dependencies with CodeLens hints",
   "version": "0.0.1",
+  "publisher": "xtdw12345",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/xtdw12345/spring-bean-navigation"
+  },
   "engines": {
     "vscode": "^1.107.0"
   },
