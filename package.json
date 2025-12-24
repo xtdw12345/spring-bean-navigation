@@ -1,7 +1,7 @@
 {
-  "name": "happy-java",
-  "displayName": "happy-java",
-  "description": "happy writing java",
+  "name": "spring-bean-navigation",
+  "displayName": "Spring Bean Navigation",
+  "description": "Navigate Spring Bean dependencies with CodeLens hints",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.107.0"
@@ -18,27 +18,23 @@
   "contributes": {
     "commands": [
       {
-        "command": "happy-java.happyJava",
-        "title": "Happy Java"
+        "command": "spring-bean-navigation.navigateToBean",
+        "title": "Spring Bean Navigation: Navigate to Bean"
       },
       {
-        "command": "happy-java.navigateToBean",
-        "title": "happy-java: Navigate to Spring Bean"
-      },
-      {
-        "command": "happy-java.rebuildIndex",
-        "title": "happy-java: Rebuild Spring Bean Index"
+        "command": "spring-bean-navigation.rebuildIndex",
+        "title": "Spring Bean Navigation: Rebuild Bean Index"
       }
     ],
     "configuration": {
-      "title": "Happy Java",
+      "title": "Spring Bean Navigation",
       "properties": {
-        "happy-java.indexing.enabled": {
+        "spring-bean-navigation.indexing.enabled": {
           "type": "boolean",
           "default": true,
           "description": "Enable/disable Spring Bean indexing"
         },
-        "happy-java.indexing.paths": {
+        "spring-bean-navigation.indexing.paths": {
           "type": "array",
           "default": [
             "src/main/java",
@@ -49,7 +45,7 @@
             "type": "string"
           }
         },
-        "happy-java.indexing.excludePatterns": {
+        "spring-bean-navigation.indexing.excludePatterns": {
           "type": "array",
           "default": [
             "**/target/**",
@@ -62,17 +58,17 @@
             "type": "string"
           }
         },
-        "happy-java.indexing.maxCacheSize": {
+        "spring-bean-navigation.indexing.maxCacheSize": {
           "type": "number",
           "default": 20,
           "description": "Maximum cache size in MB for Bean index"
         },
-        "happy-java.indexing.debounceDelay": {
+        "spring-bean-navigation.indexing.debounceDelay": {
           "type": "number",
           "default": 500,
           "description": "Debounce delay in milliseconds for file change events"
         },
-        "happy-java.indexing.showProgress": {
+        "spring-bean-navigation.indexing.showProgress": {
           "type": "boolean",
           "default": true,
           "description": "Show progress notification during indexing"

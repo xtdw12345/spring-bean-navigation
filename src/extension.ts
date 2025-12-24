@@ -2,7 +2,6 @@
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
 import { BeanIndexer } from './spring-bean-navigation/indexer/beanIndexer';
-import { SpringBeanDefinitionProvider } from './spring-bean-navigation/providers/definitionProvider';
 import { SpringBeanCodeLensProvider } from './spring-bean-navigation/providers/beanCodeLensProvider';
 import { BeanResolver } from './spring-bean-navigation/resolver/beanResolver';
 import { BeanInjectionPoint } from './spring-bean-navigation/models/BeanInjectionPoint';
@@ -17,12 +16,12 @@ let beanIndexer: BeanIndexer | undefined;
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
 export async function activate(context: vscode.ExtensionContext) {
-	console.log('[Happy Java] Extension activating...');
+	console.log('[Spring Bean Navigation] Extension activating...');
 
 	// Check if we have workspace folders
 	const workspaceFolders = vscode.workspace.workspaceFolders;
 	if (!workspaceFolders || workspaceFolders.length === 0) {
-		console.log('[Happy Java] No workspace folders found, skipping Spring Bean navigation setup');
+		console.log('[Spring Bean Navigation] No workspace folders found, skipping setup');
 		return;
 	}
 
@@ -33,18 +32,18 @@ export async function activate(context: vscode.ExtensionContext) {
 	for (const folder of workspaceFolders) {
 		if (await projectDetector.isSpringProject(folder)) {
 			hasSpringProject = true;
-			console.log(`[Happy Java] Spring Boot project detected in ${folder.name}`);
+			console.log(`[Spring Bean Navigation] Spring Boot project detected in ${folder.name}`);
 			break;
 		}
 	}
 
 	if (!hasSpringProject) {
-		console.log('[Happy Java] No Spring Boot projects detected, skipping Bean indexing');
+		console.log('[Spring Bean Navigation] No Spring Boot projects detected, skipping Bean indexing');
 		return;
 	}
 
 	// Initialize Bean Indexer
-	console.log('[Happy Java] Initializing Bean Indexer...');
+	console.log('[Spring Bean Navigation] Initializing Bean Indexer...');
 	beanIndexer = new BeanIndexer();
 	await beanIndexer.initialize(context, Array.from(workspaceFolders));
 
@@ -52,20 +51,20 @@ export async function activate(context: vscode.ExtensionContext) {
 	const cacheLoaded = await beanIndexer.loadFromPersistentStorage();
 	if (!cacheLoaded) {
 		// Build full index in background
-		console.log('[Happy Java] Building Bean index...');
+		console.log('[Spring Bean Navigation] Building Bean index...');
 		vscode.window.withProgress({
 			location: vscode.ProgressLocation.Notification,
-			title: 'Happy Java',
+			title: 'Spring Bean Navigation',
 			cancellable: false
 		}, async (progress) => {
 			progress.report({ message: 'Indexing Spring Beans...' });
 			const count = await beanIndexer!.buildFullIndex(true);
-			console.log(`[Happy Java] Indexed ${count} Spring Beans`);
+			console.log(`[Spring Bean Navigation] Indexed ${count} Spring Beans`);
 			return;
 		});
 	} else {
 		const stats = beanIndexer.getStats();
-		console.log(`[Happy Java] Loaded ${stats.totalBeans} beans from cache`);
+		console.log(`[Spring Bean Navigation] Loaded ${stats.totalBeans} beans from cache`);
 	}
 
 	// Register CodeLens Provider for Java files
@@ -75,11 +74,11 @@ export async function activate(context: vscode.ExtensionContext) {
 		codeLensProvider
 	);
 	context.subscriptions.push(codeLensDisposable);
-	console.log('[Happy Java] CodeLens Provider registered for Java files');
+	console.log('[Spring Bean Navigation] CodeLens Provider registered for Java files');
 
 	// Register command for navigating to bean definition (triggered by CodeLens)
 	const navigateToBeanCommand = vscode.commands.registerCommand(
-		'happy-java.navigateToBean',
+		'spring-bean-navigation.navigateToBean',
 		async (injection: BeanInjectionPoint, preResolvedBeans?: BeanDefinition[]) => {
 			try {
 				// Get bean index
@@ -136,7 +135,7 @@ export async function activate(context: vscode.ExtensionContext) {
 					});
 				}
 			} catch (error) {
-				console.error('[Happy Java] Error navigating to bean:', error);
+				console.error('[Spring Bean Navigation] Error navigating to bean:', error);
 				vscode.window.showErrorMessage('Failed to navigate to bean definition');
 			}
 		}
@@ -144,7 +143,7 @@ export async function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(navigateToBeanCommand);
 
 	// Register command for manual index rebuild
-	const rebuildCommand = vscode.commands.registerCommand('happy-java.rebuildIndex', async () => {
+	const rebuildCommand = vscode.commands.registerCommand('spring-bean-navigation.rebuildIndex', async () => {
 		if (beanIndexer) {
 			vscode.window.showInformationMessage('Rebuilding Spring Bean index...');
 			const count = await beanIndexer.buildFullIndex(true);
@@ -163,13 +162,7 @@ export async function activate(context: vscode.ExtensionContext) {
 		}
 	});
 
-	// Keep original hello command
-	const disposable = vscode.commands.registerCommand('happy-java.happyJava', () => {
-		vscode.window.showInformationMessage('Hello World from happy-java!');
-	});
-	context.subscriptions.push(disposable);
-
-	console.log('[Happy Java] Extension activated successfully');
+	console.log('[Spring Bean Navigation] Extension activated successfully');
 }
 
 // This method is called when your extension is deactivated

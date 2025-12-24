@@ -71,7 +71,7 @@ export class SpringBeanCodeLensProvider implements vscode.CodeLensProvider {
               title: candidates.length === 1
                 ? '→ go to bean definition'
                 : `→ go to bean definition (${candidates.length} candidates)`,
-              command: 'happy-java.navigateToBean',
+              command: 'spring-bean-navigation.navigateToBean',
               arguments: [injection]
             };
 
@@ -533,7 +533,7 @@ export class SpringBeanCodeLensProvider implements vscode.CodeLensProvider {
         title = `→ ${result.bean.name}`;
         command = {
           title,
-          command: 'happy-java.navigateToBean',
+          command: 'spring-bean-navigation.navigateToBean',
           arguments: [injection, [result.bean]]
         };
         break;
@@ -542,7 +542,7 @@ export class SpringBeanCodeLensProvider implements vscode.CodeLensProvider {
         title = `→ ${result.bean.name} (@Primary)`;
         command = {
           title,
-          command: 'happy-java.navigateToBean',
+          command: 'spring-bean-navigation.navigateToBean',
           arguments: [injection, [result.bean]]
         };
         break;
@@ -551,7 +551,7 @@ export class SpringBeanCodeLensProvider implements vscode.CodeLensProvider {
         title = `→ ${result.bean.name} (@Qualifier)`;
         command = {
           title,
-          command: 'happy-java.navigateToBean',
+          command: 'spring-bean-navigation.navigateToBean',
           arguments: [injection, [result.bean]]
         };
         break;
@@ -560,7 +560,7 @@ export class SpringBeanCodeLensProvider implements vscode.CodeLensProvider {
         title = `→ ${result.candidates.length} implementations (choose one)`;
         command = {
           title,
-          command: 'happy-java.navigateToBean',
+          command: 'spring-bean-navigation.navigateToBean',
           arguments: [injection, result.candidates]
         };
         break;
@@ -594,7 +594,7 @@ export class SpringBeanCodeLensProvider implements vscode.CodeLensProvider {
 
     const command: vscode.Command = {
       title: `⚠ ${message}`,
-      command: 'happy-java.showMessage',
+      command: 'spring-bean-navigation.showMessage',
       arguments: [message]
     };
 
